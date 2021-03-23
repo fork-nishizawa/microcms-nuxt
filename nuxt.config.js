@@ -1,6 +1,14 @@
-import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
+require('dotenv').config()
+const { API_KEY } = process.env
 
 export default {
+  privateRuntimeConfig: {
+    apiKey: API_KEY,
+  },
+  publicRuntimeConfig: {
+    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined,
+  },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -17,6 +25,22 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
+
+  generate: {
+    async routes() {
+      const pages = await axios
+        .get('https://fork-yoh.microcms.io/api/v1/blog?limit=100', {
+          headers: { 'X-API-KEY': API_KEY },
+        })
+        .then((res) =>
+          res.data.contents.map((content) => ({
+            route: `/${content.id}`,
+            payload: content,
+          }))
+        )
+      return pages
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -54,16 +78,15 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
+        light: {
+          primary: '#009688',
+          secondary: '#f44336',
+          accent: '#cddc39',
+          error: '#ff5722',
+          warning: '#ffc107',
+          info: '#00bcd4',
+          success: '#4caf50',
         },
       },
     },
