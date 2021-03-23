@@ -1,13 +1,15 @@
 import axios from 'axios'
 require('dotenv').config()
-const { API_KEY } = process.env
+const { API_KEY, API_URL } = process.env
 
 export default {
   privateRuntimeConfig: {
     apiKey: API_KEY,
+    apiUrl: API_URL,
   },
   publicRuntimeConfig: {
     apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined,
+    apiUrl: process.env.NODE_ENV !== 'production' ? API_URL : undefined,
   },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -30,7 +32,7 @@ export default {
   generate: {
     async routes() {
       const pages = await axios
-        .get('https://fork-yoh.microcms.io/api/v1/blog?limit=100', {
+        .get(`${API_URL}/blog?limit=100`, {
           headers: { 'X-API-KEY': API_KEY },
         })
         .then((res) =>

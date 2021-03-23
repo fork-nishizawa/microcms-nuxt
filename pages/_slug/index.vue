@@ -13,7 +13,7 @@ import axios from 'axios'
 export default {
   async asyncData(context: Context) {
     const { data } = await axios.get(
-      `https://fork-yoh.microcms.io/api/v1/blog/${context.params.slug}`,
+      `${context.$config.apiUrl}/blog/${context.params.slug}`,
       {
         headers: { 'X-API-KEY': context.$config.apiKey },
       }
