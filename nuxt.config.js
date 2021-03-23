@@ -4,10 +4,10 @@ const { API_KEY } = process.env
 
 export default {
   privateRuntimeConfig: {
-    apiKey: API_KEY
+    apiKey: API_KEY,
   },
   publicRuntimeConfig: {
-    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+    apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined,
   },
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -29,18 +29,18 @@ export default {
 
   generate: {
     async routes() {
-      const pages = await axios.get(
-        'https://fork-yoh.microcms.io/api/v1/blog?limit=100', {
-          headers: { 'X-API-KEY': API_KEY }
-        }
-      ).then((res) =>
-        res.data.contents.map((content) => ({
-          route: `/${content.id}`,
-          payload: content
-        }))
-      )
+      const pages = await axios
+        .get('https://fork-yoh.microcms.io/api/v1/blog?limit=100', {
+          headers: { 'X-API-KEY': API_KEY },
+        })
+        .then((res) =>
+          res.data.contents.map((content) => ({
+            route: `/${content.id}`,
+            payload: content,
+          }))
+        )
       return pages
-    }
+    },
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -86,7 +86,7 @@ export default {
           error: '#ff5722',
           warning: '#ffc107',
           info: '#00bcd4',
-          success: '#4caf50'
+          success: '#4caf50',
         },
       },
     },

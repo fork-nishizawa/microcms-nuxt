@@ -9,9 +9,9 @@
 
 <script lang="ts">
 import { Context } from '@nuxt/types'
+import axios from 'axios'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
-import axios from 'axios'
 
 export default {
   components: {
@@ -22,7 +22,7 @@ export default {
     const { data } = await axios.get(
       'https://fork-yoh.microcms.io/api/v1/blog',
       {
-        headers: { 'X-API-KEY': context.$config.apiKey }
+        headers: { 'X-API-KEY': context.$config.apiKey },
       }
     )
     return data

@@ -15,10 +15,10 @@ export default {
     const { data } = await axios.get(
       `https://fork-yoh.microcms.io/api/v1/blog/${context.params.slug}`,
       {
-        headers: { 'X-API-KEY': context.$config.apiKey }
+        headers: { 'X-API-KEY': context.$config.apiKey },
       }
     )
     return data
-  }
+  },
 }
 </script>
