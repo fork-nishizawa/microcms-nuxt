@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app(dark)
+  v-app(light)
     v-main.pt-8
       v-container
         nuxt
