@@ -11,13 +11,10 @@ import { Context } from '@nuxt/types'
 import axios from 'axios'
 
 export default {
-  async asyncData(context: Context) {
-    const { data } = await axios.get(
-      `${context.$config.apiUrl}/blog/${context.params.slug}`,
-      {
-        headers: { 'X-API-KEY': context.$config.apiKey },
-      }
-    )
+  async asyncData({ $config, params }: Context) {
+    const { data } = await axios.get(`${$config.apiUrl}/blog/${params.slug}`, {
+      headers: { 'X-API-KEY': $config.apiKey },
+    })
     return data
   },
 }
