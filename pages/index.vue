@@ -1,6 +1,6 @@
 <template lang="pug">
   v-row(justify="center" align="center")
-    v-col(cols="12" sm="8" md="6")
+    v-col(cols="12" sm="8" md="10")
       ul
         li(v-for="content in contents" :key="content.id")
           nuxt-link(:to="`/${content.id}`")
