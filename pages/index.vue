@@ -18,13 +18,10 @@ export default {
     Logo,
     VuetifyLogo,
   },
-  async asyncData(context: Context) {
-    const { data } = await axios.get(
-      'https://fork-yoh.microcms.io/api/v1/blog',
-      {
-        headers: { 'X-API-KEY': context.$config.apiKey },
-      }
-    )
+  async asyncData({ $config }: Context) {
+    const { data } = await axios.get(`${$config.apiUrl}/blog`, {
+      headers: { 'X-API-KEY': $config.apiKey },
+    })
     return data
   },
 }

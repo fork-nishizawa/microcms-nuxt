@@ -1,17 +1,15 @@
-name: ci
+name: Generate static page & Deploy to Firebase Hosting
 
 on:
+  repository_dispatch:
+    types: [update_post]
   push:
     branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
       - master
 
 jobs:
-  ci:
+  generate-deploy:
+    name: GENERATE and DEPLOY🚀
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -20,7 +18,7 @@ jobs:
         node: [14]
 
     steps:
-      - name: Checkout 🛎
+      - name: Checkout Repo 🛎
         uses: actions/checkout@master
 
       - name: Setup node env 🏗
@@ -42,4 +40,13 @@ jobs:
 
       - name: Run linter 👀
         run: npm run lint
+
+      - name: Generate static page ✨
+        env:
+          API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          API_URL: ${{ secrets.MICROCMS_API_URL }}
+        run: npm run generate
+
+      - name: Deploy to Firebase Hosting
+        run: npm run deploy --token=${{ secrets.FIREBASE_TOKEN }}
 
