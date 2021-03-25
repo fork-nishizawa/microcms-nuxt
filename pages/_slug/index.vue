@@ -1,8 +1,6 @@
 <template lang="pug">
   v-row(justify="center" align="center")
-    v-col(cols="12" sm="8" md="10")
-      v-title
-        | {{ title }}
+    v-col(cols="12" sm="8" md="6")
       .post(v-html="body")
 </template>
 
