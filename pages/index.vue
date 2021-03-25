@@ -10,14 +10,8 @@
 <script lang="ts">
 import { Context } from '@nuxt/types'
 import axios from 'axios'
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
-  components: {
-    Logo,
-    VuetifyLogo,
-  },
   async asyncData({ $config }: Context) {
     const { data } = await axios.get(`${$config.apiUrl}/blog`, {
       headers: { 'X-API-KEY': $config.apiKey },
